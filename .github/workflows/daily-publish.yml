@@ -1,37 +1,29 @@
-name: 发布文章
+name: Daily Article Publish
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # 每天8点运行
-  workflow_dispatch:  # 允许手动触发
+    - cron: '0 0 * * *'  # 每天 UTC 00:00（北京时间 08:00）
+  workflow_dispatch:      # 允许手动触发
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
       
-      - name: 设置Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-          
-      - name: 安装依赖
+      
+      - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          
-      - name: 运行发布脚本
+      
+      - name: Run publisher
         env:
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
           WECHAT_APP_ID: ${{ secrets.WECHAT_APP_ID }}
           WECHAT_APP_SECRET: ${{ secrets.WECHAT_APP_SECRET }}
         run: python run_publisher.py
-        continue-on-error: true  # 即使失败也继续
-        
-      - name: 上传草稿作为Artifact
-        if: always()  # 总是运行
-        uses: actions/upload-artifact@v3
-        with:
-          name: 文章草稿
-          path: drafts/
-          retention-days: 7  # 保留7天
