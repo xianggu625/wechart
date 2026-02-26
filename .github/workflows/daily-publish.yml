@@ -1,9 +1,11 @@
 name: Daily Article Publish
 
 on:
+  push:
+    branches: [ main ]  # 指定分支
   schedule:
     # 每天 UTC 00:00 执行（北京时间 08:00）
-    - cron: '22 11 * * *'
+    - cron: '30 11 * * *'
   workflow_dispatch:  # 允许手动触发
 
 jobs:
@@ -12,6 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          ref: main  # 明确指定分支
       
       - name: Set up Python
         uses: actions/setup-python@v4
