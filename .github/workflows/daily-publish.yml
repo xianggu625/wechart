@@ -24,7 +24,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install fastapi uvicorn apscheduler python-dotenv loguru requests openai
       
       - name: Run publish script
         env:
