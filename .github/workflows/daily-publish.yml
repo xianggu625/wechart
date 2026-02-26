@@ -33,4 +33,4 @@ jobs:
           WECHAT_APP_SECRET: ${{ secrets.WECHAT_APP_SECRET }}
           PUBLISH_TIME: "08:00"
           SAVE_TO_DRAFT: "true"  # 建议先保存草稿，人工审核
-        run: python main.py
+        run: python run_publisher.py
