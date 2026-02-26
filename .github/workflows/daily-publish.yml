@@ -3,7 +3,7 @@ name: Daily Article Publish
 on:
   schedule:
     # 每天 UTC 00:00 执行（北京时间 08:00）
-    - cron: '00 00 * * *'
+    - cron: '22 11 * * *'
   workflow_dispatch:  # 允许手动触发
 
 jobs:
